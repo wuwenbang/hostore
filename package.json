@@ -1,0 +1,22 @@
+{
+  "name": "hook-store",
+  "version": "0.0.1",
+  "description": "A state management library for React using context and hooks.",
+  "main": "index.ts",
+  "keywords": [
+    "react"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "wuwenbang",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^18.2.45",
+    "react": "^18.2.0",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  }
+}

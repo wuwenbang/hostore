@@ -1,0 +1,57 @@
+lockfileVersion: 5.4
+
+specifiers:
+  '@types/react': ^18.2.45
+  react: ^18.2.0
+  typescript: ^5.3.3
+
+devDependencies:
+  '@types/react': 18.2.45
+  react: 18.2.0
+  typescript: 5.3.3
+
+packages:
+
+  /@types/prop-types/15.7.11:
+    resolution: {integrity: sha1-JZb7NS7pahN5xldzTUuROmE61WM=, tarball: '@types/prop-types/download/@types/prop-types-15.7.11.tgz'}
+    dev: true
+
+  /@types/react/18.2.45:
+    resolution: {integrity: sha1-JT9PrCiOfnUas9xUIAD7aHQiwVw=, tarball: '@types/react/download/@types/react-18.2.45.tgz'}
+    dependencies:
+      '@types/prop-types': 15.7.11
+      '@types/scheduler': 0.16.8
+      csstype: 3.1.3
+    dev: true
+
+  /@types/scheduler/0.16.8:
+    resolution: {integrity: sha1-zlrOBM/qvn74fACR5QdS42cH3v8=, tarball: '@types/scheduler/download/@types/scheduler-0.16.8.tgz'}
+    dev: true
+
+  /csstype/3.1.3:
+    resolution: {integrity: sha1-2A/ylNEU+w5qxQD7+FtgE31+/4E=, tarball: csstype/download/csstype-3.1.3.tgz}
+    dev: true
+
+  /js-tokens/4.0.0:
+    resolution: {integrity: sha1-GSA/tZmR35jjoocFDUZHzerzJJk=, tarball: js-tokens/download/js-tokens-4.0.0.tgz}
+    dev: true
+
+  /loose-envify/1.4.0:
+    resolution: {integrity: sha1-ce5R+nvkyuwaY4OffmgtgTLTDK8=, tarball: loose-envify/download/loose-envify-1.4.0.tgz}
+    hasBin: true
+    dependencies:
+      js-tokens: 4.0.0
+    dev: true
+
+  /react/18.2.0:
+    resolution: {integrity: sha1-VVvZhZKIMlX6AN4U8RUakXtdd9U=, tarball: react/download/react-18.2.0.tgz}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      loose-envify: 1.4.0
+    dev: true
+
+  /typescript/5.3.3:
+    resolution: {integrity: sha1-s85roljnLmMFumb1ybRSqu4//jc=, tarball: typescript/download/typescript-5.3.3.tgz}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: true

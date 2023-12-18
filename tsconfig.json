@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": false,
+    "skipLibCheck": true,
+    "moduleResolution": "Node",
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": { "hook-store": ["./index.tsx"] }
+  }
+}
