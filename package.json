@@ -7,16 +7,21 @@
     "react"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rollup -c --bundleConfigAsCjs"
   },
   "author": "wuwenbang",
   "license": "ISC",
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.5",
     "@types/react": "^18.2.45",
     "react": "^18.2.0",
+    "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.3.3"
   },
   "peerDependencies": {
     "react": "^18.2.0"
-  }
+  },
+  "type": "module"
 }
