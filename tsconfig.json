@@ -4,11 +4,14 @@
     "module": "ESNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": false,
+    "strict": true,
     "skipLibCheck": true,
     "moduleResolution": "Node",
     "jsx": "react-jsx",
+    "declaration": true,
+    "declarationDir": "./dist/",
     "baseUrl": "./src",
     "paths": { "hook-store": ["./index.tsx"] }
-  }
+  },
+  "include": ["./src"]
 }
