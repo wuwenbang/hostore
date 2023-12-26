@@ -8,7 +8,7 @@ import { terser } from "rollup-plugin-terser";
 const unpkgRollupConfig = {
   input: "./index.ts",
   output: {
-    name: "hook-store",
+    name: "hostore",
     file: "dist/index.min.js",
     format: "umd",
   },
@@ -38,7 +38,7 @@ const mainRollupConfig = {
     {
       file: "dist/index.cjs.js",
       format: "umd",
-      name: "hook-store",
+      name: "hostore",
     },
     {
       file: "dist/index.es.js",

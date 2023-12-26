@@ -1,5 +1,5 @@
 {
-  "name": "hook-store",
+  "name": "hostore",
   "version": "0.0.1",
   "description": "A state management library for React using context and hooks.",
   "main": "index.cjs.js",

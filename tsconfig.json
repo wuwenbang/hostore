@@ -11,7 +11,7 @@
     "declaration": true,
     "declarationDir": "./dist/",
     "baseUrl": "./src",
-    "paths": { "hook-store": ["./index.tsx"] }
+    "paths": { "hostore": ["./index.tsx"] }
   },
   "include": ["./src"]
 }
