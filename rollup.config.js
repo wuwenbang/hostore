@@ -1,7 +1,6 @@
 import resolve from "@rollup/plugin-node-resolve";
 import cjs from "@rollup/plugin-commonjs";
 import ts from "@rollup/plugin-typescript";
-import generatePackageJson from "rollup-plugin-generate-package-json";
 import babel from "@rollup/plugin-babel";
 import { terser } from "rollup-plugin-terser";
 
@@ -24,11 +23,6 @@ const unpkgRollupConfig = {
     terser(),
     cjs(),
     ts(),
-    generatePackageJson({
-      inputFolder: "./",
-      outputFolder: "./dist/",
-      baseContents: (pkg) => pkg,
-    }),
   ],
 };
 
@@ -56,11 +50,6 @@ const mainRollupConfig = {
     }),
     cjs(),
     ts(),
-    generatePackageJson({
-      inputFolder: "./",
-      outputFolder: "./dist/",
-      baseContents: (pkg) => pkg,
-    }),
   ],
 };
 
