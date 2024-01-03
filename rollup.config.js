@@ -5,7 +5,7 @@ import babel from "@rollup/plugin-babel";
 import { terser } from "rollup-plugin-terser";
 
 const unpkgRollupConfig = {
-  input: "./index.ts",
+  input: "src/index.tsx",
   output: {
     name: "hostore",
     file: "dist/index.min.js",
@@ -27,7 +27,7 @@ const unpkgRollupConfig = {
 };
 
 const mainRollupConfig = {
-  input: "./index.ts",
+  input: "src/index.tsx",
   output: [
     {
       file: "dist/index.cjs.js",

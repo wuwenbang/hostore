@@ -1,6 +1,6 @@
 {
   "name": "hostore",
-  "version": "0.0.1-beta.4",
+  "version": "0.0.1-beta.5",
   "description": "A state management library for React using context and hooks.",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.js",
@@ -15,7 +15,7 @@
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs",
     "prepare": "husky install",
-    "lint": "eslint --ext .ts,.tsx src"
+    "lint": "eslint"
   },
   "author": "wuwenbang",
   "license": "MIT",

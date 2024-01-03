@@ -9,9 +9,9 @@
     "moduleResolution": "Node",
     "jsx": "react-jsx",
     "declaration": true,
-    "declarationDir": "./dist/",
-    "baseUrl": "./src",
-    "paths": { "hostore": ["./index.tsx"] }
+    "declarationDir": "dist",
+    "baseUrl": "src",
+    "paths": { "hostore": ["src/index.tsx"] }
   },
-  "include": ["./src"]
+  "include": ["src"]
 }
