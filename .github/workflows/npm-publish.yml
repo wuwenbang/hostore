@@ -5,27 +5,31 @@ name: Node.js Package
 
 on:
   release:
-    types: [created]
+    push:
+      branches:
+        - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: npm build
-
   publish-npm:
-    needs: build
     runs-on: ubuntu-latest
     steps:
+      # 拉取 github 仓库代码
       - uses: actions/checkout@v3
+        # 设定 node 环境
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+          # 设置发包 npm 地址仓库
           registry-url: https://registry.npmjs.org/
-      - run: npm publish
+      # 安装依赖
+      - name: Install dependencies
+        run: npm install
+      # 构筑
+      - name: Build
+        run: npm run build
+      # 发布
+      - name: Publish
+        run: npm publish
         env:
+          # 刚刚设置的 NPM_TOKEN
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
