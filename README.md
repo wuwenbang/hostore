@@ -111,7 +111,7 @@ const CounterStore = createStore(() => {
 });
 ```
 
-### `Store.Provider`
+### `<Store.Provider>`
 
 提供 `Store`。
 
@@ -119,6 +119,27 @@ const CounterStore = createStore(() => {
 const App = () => {
   return (
     <CounterStore.Provider>
+      <Child1 />
+      <Child2 />
+      <Child3 />
+    </CounterStore.Provider>
+  );
+};
+```
+
+### `<Store.Provider initialState>`
+
+提供 `Store`，并设置初始化状态 `initialState`。
+
+```tsx
+const CounterStore = createStore((initailState) => {
+  const [count, setCount] = useState(initailState);
+  // ...
+});
+
+const App = () => {
+  return (
+    <CounterStore.Provider initialState={0}>
       <Child1 />
       <Child2 />
       <Child3 />
@@ -138,7 +159,8 @@ const Child = () => {
 };
 ```
 
-传入 `selector` 筛选函数，只有当筛选的值发生变化时，才会触发组件的 `rerender`。
+### `Store.useStore(selector)`
+消费 `Store`，并传入 `selector` 筛选函数。只有当筛选的值发生变化时，才会触发组件的 `rerender`。
 
 ```tsx
 const Child = () => {
