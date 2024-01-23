@@ -127,19 +127,19 @@ const App = () => {
 };
 ```
 
-### `<Store.Provider initialState>`
+### `<Store.Provider props>`
 
-提供 `Store`，并设置初始化状态 `initialState`。
+提供 `Store`，并设置参数 `props`。
 
 ```tsx
-const CounterStore = createStore((initailState) => {
-  const [count, setCount] = useState(initailState);
+const CounterStore = createStore((props: { initialCount: number }) => {
+  const [count, setCount] = useState(props.initialCount);
   // ...
 });
 
 const App = () => {
   return (
-    <CounterStore.Provider initialState={0}>
+    <CounterStore.Provider props={{ initialCount: 0 }}>
       <Child1 />
       <Child2 />
       <Child3 />
@@ -160,6 +160,7 @@ const Child = () => {
 ```
 
 ### `Store.useStore(selector)`
+
 消费 `Store`，并传入 `selector` 筛选函数。只有当筛选的值发生变化时，才会触发组件的 `rerender`。
 
 ```tsx
