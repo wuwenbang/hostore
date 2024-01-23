@@ -14,11 +14,11 @@ import {
 
 const useSafeEffect = typeof window === "undefined" ? useEffect : useLayoutEffect;
 
-export function createStore<Value, Props>(useHook: (initialState: Props) => Value) {
+export function createStore<Value, Props>(useHook: (props: Props) => Value) {
   const Context = createContext<MutableRefObject<Value>>(undefined as unknown as MutableRefObject<Value>);
   const EventContext = createContext<Set<(value: Value) => void>>(undefined as unknown as Set<(value: Value) => void>);
-  const Provider: FC<PropsWithChildren<{ initialState?: Props }>> = memo(({ initialState, children }) => {
-    const value = useHook(initialState as Props);
+  const Provider: FC<PropsWithChildren<{ props?: Props }>> = memo(({ children, props }) => {
+    const value = useHook(props as Props);
     const ref = useRef(value);
     const events = useRef<Set<(value: Value) => void>>(new Set()).current;
     ref.current = value;
