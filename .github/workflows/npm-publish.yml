@@ -14,7 +14,7 @@ jobs:
     steps:
       # 拉取 github 仓库代码
       - uses: actions/checkout@v3
-        # 设定 node 环境
+      # 设定 node 环境
       - uses: actions/setup-node@v3
         with:
           node-version: 16
@@ -23,6 +23,9 @@ jobs:
       # 安装依赖
       - name: Install dependencies
         run: npm install
+      # 测试
+      - name: Test
+        run: npm run test
       # 构筑
       - name: Build
         run: npm run build
