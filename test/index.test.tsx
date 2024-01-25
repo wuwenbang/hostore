@@ -1,5 +1,5 @@
 import React, { render, fireEvent } from "@testing-library/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { createStore, useMethod } from "../src";
 
 export const CounterStore = createStore(({ initialCount = 0 }: { initialCount: number }) => {
@@ -17,7 +17,7 @@ export const CounterStore = createStore(({ initialCount = 0 }: { initialCount: n
   };
 });
 
-test("useStore", async () => {
+test("useStore", () => {
   const Child1 = () => {
     const { count } = CounterStore.useStore();
     return <div>{count}</div>;
@@ -47,7 +47,7 @@ test("useStore", async () => {
   expect(getByText("0")).toBeDefined();
 });
 
-test("useStore with selectors", async () => {
+test("useStore with selectors", () => {
   const Child1 = () => {
     const count = CounterStore.useStore((state) => state.count);
     return <div>{count}</div>;
@@ -75,4 +75,24 @@ test("useStore with selectors", async () => {
   expect(getByText("1")).toBeDefined();
   fireEvent.click(getByText("Decrease"));
   expect(getByText("0")).toBeDefined();
+});
+
+test("useMethod", () => {
+  const App = () => {
+    const [, setState] = useState({});
+    const callback = useMethod(() => {
+      setState({});
+    });
+    const lastCallback = useRef(callback).current;
+    const isRefEqual = lastCallback === callback ? "true" : "false";
+    return (
+      <div>
+        <span>{isRefEqual}</span>
+        <button onClick={callback}>Update</button>
+      </div>
+    );
+  };
+  const { getByText } = render(<App />);
+  fireEvent.click(getByText("Update"));
+  expect(getByText("true")).toBeDefined();
 });
