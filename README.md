@@ -33,16 +33,15 @@ pnpm i hostore
 import { useState } from "react";
 import { createStore, useMethod } from "hostore";
 
-// Create Store
+// 创建 Store
 const CounterStore = createStore(() => {
   const [count, setCount] = useState(0);
-  // Return constant function reference
-  const increase = useMethod(() => {
+  const increase = () => {
     setCount((v) => v + 1);
-  });
-  const decrease = useMethod(() => {
+  };
+  const decrease = () => {
     setCount((v) => v - 1);
-  });
+  };
   return {
     count,
     increase,
@@ -51,28 +50,21 @@ const CounterStore = createStore(() => {
 });
 
 const Child1 = () => {
-  // Consume store
-  // const { count } = CounterStore.useStore();
-  // Only rerender when selected value changed
-  const count = CounterStore.useStore((value) => value.count);
-  console.log("Child1");
+  // 使用 Store
+  const { count } = CounterStore.useStore();
   return <div>{count}</div>;
 };
-
 const Child2 = () => {
-  const increase = CounterStore.useStore((value) => value.increase);
-  console.log("Child2");
-  return <button onClick={increase}>increase</button>;
+  const { increase } = CounterStore.useStore();
+  return <button onClick={increase}>Increase</button>;
 };
-
 const Child3 = () => {
-  const decrease = CounterStore.useStore((value) => value.decrease);
-  console.log("Child3");
-  return <button onClick={decrease}>decrease</button>;
+  const { decrease } = CounterStore.useStore();
+  return <button onClick={decrease}>Decrease</button>;
 };
 
 const App = () => {
-  // Wrapper child components and provide store
+  // 提供 Store
   return (
     <CounterStore.Provider>
       <Child1 />
@@ -83,6 +75,58 @@ const App = () => {
 };
 
 export default App;
+```
+
+## 示例（性能优化）
+
+上述示例中，由于 `React Context` 的更新机制，导致每次 `count` 更新时，所有子组件（`Child1` `Child2` `Child3`）都会重新渲染。（理想情况是只更新 `count` 所在 `Child1`。）
+
+为了解决上述子组件重复渲染的问题，`hostore` 提供选择更新功能：通过给 `useStore(selector)` 传递 `selector` 函数，开发者可以选择需要获取的状态，只有被选择的状态更新时，才会渲染渲染该组件。
+
+同时，`hostore` 还提供 `useMethod` 用来代替 `useCallback` ，在不需要传依赖数组的前提下保证函数引用的恒定。
+
+```tsx
+// 创建 Store
+export const CounterStore = createStore(() => {
+  const [count, setCount] = useState(0);
+  // 使用 useMethod 保证函数引用不会改变
+  const increase = useMethod(() => {
+    setCount((v) => v + 1);
+  });
+  // 使用 useMethod 保证函数引用不会改变
+  const decrease = useMethod(() => {
+    setCount((v) => v - 1);
+  });
+  return {
+    count,
+    increase,
+    decrease,
+  };
+});
+const Child1 = () => {
+  // 使用 selector 函数选择 count 属性，当且仅当 count 变动时，组件重新渲染。
+  const count = CounterStore.useStore((state) => state.count);
+  return <div>{count}</div>;
+};
+const Child2 = () => {
+  // 使用 selector 函数选择 increase 属性，当且仅当 increase 变动时，组件重新渲染。
+  const increase = CounterStore.useStore((state) => state.increase);
+  return <button onClick={increase}>Increase</button>;
+};
+const Child3 = () => {
+  // 使用 selector 函数选择 decrease 属性，当且仅当 decrease 变动时，组件重新渲染。
+  const decrease = CounterStore.useStore((state) => state.decrease);
+  return <button onClick={decrease}>Decrease</button>;
+};
+const App = () => {
+  return (
+    <CounterStore.Provider>
+      <Child1 />
+      <Child2 />
+      <Child3 />
+    </CounterStore.Provider>
+  );
+};
 ```
 
 ## API
@@ -148,7 +192,7 @@ const App = () => {
 };
 ```
 
-### `Store.useStore(selector)`
+### `Store.useStore()`
 
 消费 `Store`。当 `Store` 的值变化，触发组件的 `rerender`。
 
@@ -161,12 +205,12 @@ const Child = () => {
 
 ### `Store.useStore(selector)`
 
-消费 `Store`，并传入 `selector` 筛选函数。只有当筛选的值发生变化时，才会触发组件的 `rerender`。
+消费 `Store`，并传入 `selector` 选择函数。只有当被选择的值发生变化时，才会触发组件的 `rerender`。
 
 ```tsx
 const Child = () => {
   const count = CounterStore.useStore((value) => value.count);
-  // Only rerender when count value changed
+  // 当且仅当 count 值变化时，才会重新渲染组件
   return <div>{count}</div>;
 };
 ```
@@ -176,7 +220,7 @@ const Child = () => {
 传入一个函数，返回一个恒定的函数引用（不需要传 `deps` 的 `useCallback`）。可以用来避免函数引用变更造成的无效重复渲染，以优化性能。
 
 ```tsx
-// Return constant function reference
+// 返回恒定的函数引用
 const increase = useMethod(() => {
   setCount((v) => v + 1);
 });
