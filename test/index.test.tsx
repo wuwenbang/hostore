@@ -2,7 +2,7 @@ import React, { render, fireEvent } from "@testing-library/react";
 import { useRef, useState } from "react";
 import { createStore, useMethod } from "../src";
 
-export const CounterStore = createStore(({ initialCount = 0 }: { initialCount: number }) => {
+const CounterStore = createStore(({ initialCount = 0 }: { initialCount: number }) => {
   const [count, setCount] = useState(initialCount);
   const increase = useMethod(() => {
     setCount((v) => v + 1);
