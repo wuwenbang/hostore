@@ -28,6 +28,7 @@ pnpm i hostore
 ```
 
 ## 示例
+
 ### 基础示例
 
 ```tsx
@@ -82,9 +83,9 @@ export default App;
 
 上述示例中，由于 `React Context` 的更新机制，导致每次 `count` 更新时，所有子组件（`Child1` `Child2` `Child3`）都会重新渲染。（理想情况是只更新 `count` 所在 `Child1`。）
 
-为了解决上述子组件重复渲染的问题，`hostore` 提供**选择更新**功能：通过给 `useStore(selector)` 传递 `selector` 函数，开发者可以选择需要获取的状态。只有被选择的状态更新时，才会重新渲染该组件。
+为了解决上述子组件重复渲染的问题，`hostore` 提供「选择更新」功能：通过给 `useStore(selector)` 传递 `selector` 函数，开发者可以选择需要获取的状态。只有被选择的状态更新时，才会重新渲染该组件。
 
-同时，`hostore` 还提供 `useMethod` 用来代替 `useCallback` ，在不需要传依赖数组的前提下保证**函数引用的恒定**。
+同时，`hostore` 还提供 `useMethod` 用来代替 `useCallback` ，在不需要传依赖数组的前提下保证「函数引用的恒定」。
 
 ```tsx
 // 创建 Store
