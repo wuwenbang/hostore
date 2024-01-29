@@ -33,7 +33,7 @@ pnpm i hostore
 
 ```tsx
 import { useState } from "react";
-import { createStore, useMethod } from "hostore";
+import { createStore, useEvent } from "hostore";
 
 // 创建 Store
 const CounterStore = createStore(() => {
@@ -85,18 +85,18 @@ export default App;
 
 为了解决上述子组件重复渲染的问题，`hostore` 提供「选择更新」功能：通过给 `useStore(selector)` 传递 `selector` 函数，开发者可以选择需要获取的状态。只有被选择的状态更新时，才会重新渲染该组件。
 
-同时，`hostore` 还提供 `useMethod` 用来代替 `useCallback` ，在不需要传依赖数组的前提下保证「函数引用的恒定」。
+同时，`hostore` 还提供 `useEvent` 用来代替 `useCallback` ，在不需要传依赖数组的前提下保证「函数引用的恒定」。
 
 ```tsx
 // 创建 Store
 export const CounterStore = createStore(() => {
   const [count, setCount] = useState(0);
-  // 使用 useMethod 保证函数引用不会改变
-  const increase = useMethod(() => {
+  // 使用 useEvent 保证函数引用不会改变
+  const increase = useEvent(() => {
     setCount((v) => v + 1);
   });
-  // 使用 useMethod 保证函数引用不会改变
-  const decrease = useMethod(() => {
+  // 使用 useEvent 保证函数引用不会改变
+  const decrease = useEvent(() => {
     setCount((v) => v - 1);
   });
   return {
@@ -217,13 +217,13 @@ const Child = () => {
 };
 ```
 
-### `useMethod(callback)`
+### `useEvent(callback)`
 
 传入一个函数，返回一个恒定的函数引用（不需要传 `deps` 的 `useCallback`）。可以用来避免函数引用变更造成的无效重复渲染，以优化性能。
 
 ```tsx
 // 返回恒定的函数引用
-const increase = useMethod(() => {
+const increase = useEvent(() => {
   setCount((v) => v + 1);
 });
 ```

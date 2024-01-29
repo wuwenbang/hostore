@@ -1,13 +1,13 @@
 import React, { render, fireEvent } from "@testing-library/react";
 import { useRef, useState } from "react";
-import { createStore, useMethod } from "../src";
+import { createStore, useEvent } from "../src";
 
 const CounterStore = createStore(({ initialCount = 0 }: { initialCount: number }) => {
   const [count, setCount] = useState(initialCount);
-  const increase = useMethod(() => {
+  const increase = useEvent(() => {
     setCount((v) => v + 1);
   });
-  const decrease = useMethod(() => {
+  const decrease = useEvent(() => {
     setCount((v) => v - 1);
   });
   return {
@@ -77,10 +77,10 @@ test("useStore with selectors", () => {
   expect(getByText("0")).toBeDefined();
 });
 
-test("useMethod", () => {
+test("useEvent", () => {
   const App = () => {
     const [, setState] = useState({});
-    const callback = useMethod(() => {
+    const callback = useEvent(() => {
       setState({});
     });
     const lastCallback = useRef(callback).current;

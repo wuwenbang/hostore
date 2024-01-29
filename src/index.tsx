@@ -65,7 +65,7 @@ export function createStore<Value, Props>(useHook: (props: Props) => Value) {
   return { Provider, useStore };
 }
 
-export function useMethod<Args extends unknown[], Return>(fn: (...args: Args) => Return): (...args: Args) => Return {
+export function useEvent<Args extends unknown[], Return>(fn: (...args: Args) => Return): (...args: Args) => Return {
   const ref = useRef(fn);
   useSafeEffect(() => {
     ref.current = fn;
