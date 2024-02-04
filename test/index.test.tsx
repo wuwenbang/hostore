@@ -20,7 +20,7 @@ const CounterStore = createStore(({ initialCount = 0 }: { initialCount: number }
 test("useStore", () => {
   const Child1 = () => {
     const { count } = CounterStore.useStore();
-    return <div>{count}</div>;
+    return <div>Count: {count}</div>;
   };
   const Child2 = () => {
     const { increase } = CounterStore.useStore();
@@ -40,25 +40,39 @@ test("useStore", () => {
     );
   };
   const { getByText } = render(<App />);
-  expect(getByText("0")).toBeDefined();
+  expect(getByText("Count: 0")).toBeDefined();
   fireEvent.click(getByText("Increase"));
-  expect(getByText("1")).toBeDefined();
+  expect(getByText("Count: 1")).toBeDefined();
   fireEvent.click(getByText("Decrease"));
-  expect(getByText("0")).toBeDefined();
+  expect(getByText("Count: 0")).toBeDefined();
 });
 
 test("useStore with selectors", () => {
   const Child1 = () => {
     const count = CounterStore.useStore((state) => state.count);
-    return <div>{count}</div>;
+    return <div>Count: {count}</div>;
   };
   const Child2 = () => {
+    const ref = useRef(0);
+    ref.current++;
     const increase = CounterStore.useStore((state) => state.increase);
-    return <button onClick={increase}>Increase</button>;
+    return (
+      <div>
+        <span>Increase render count: {ref.current}</span>
+        <button onClick={increase}>Increase</button>
+      </div>
+    );
   };
   const Child3 = () => {
+    const ref = useRef(0);
+    ref.current++;
     const decrease = CounterStore.useStore((state) => state.decrease);
-    return <button onClick={decrease}>Decrease</button>;
+    return (
+      <div>
+        <span>Decrease render count: {ref.current}</span>
+        <button onClick={decrease}>Decrease</button>
+      </div>
+    );
   };
   const App = () => {
     return (
@@ -70,11 +84,13 @@ test("useStore with selectors", () => {
     );
   };
   const { getByText } = render(<App />);
-  expect(getByText("0")).toBeDefined();
+  expect(getByText("Count: 0")).toBeDefined();
   fireEvent.click(getByText("Increase"));
-  expect(getByText("1")).toBeDefined();
+  expect(getByText("Count: 1")).toBeDefined();
   fireEvent.click(getByText("Decrease"));
-  expect(getByText("0")).toBeDefined();
+  expect(getByText("Count: 0")).toBeDefined();
+  expect(getByText("Increase render count: 1")).toBeDefined();
+  expect(getByText("Decrease render count: 1")).toBeDefined();
 });
 
 test("useEvent", () => {
