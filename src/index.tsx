@@ -17,7 +17,7 @@ interface ContextObject<Value> {
   events: Set<(value: Value) => void>;
 }
 export function createStore<Value, Props>(useHook: (props: Props) => Value) {
-  const Context = createContext<ContextObject<Value>>(null as unknown as ContextObject<Value>);
+  const Context = createContext<ContextObject<Value>>({} as unknown as ContextObject<Value>);
   const Provider: FC<PropsWithChildren<{ props?: Props }>> = memo(({ children, props }) => {
     const value = useHook(props as Props);
     const events: Set<(value: Value) => void> = new Set();
