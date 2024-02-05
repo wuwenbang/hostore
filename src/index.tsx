@@ -33,14 +33,14 @@ export function createStore<Value, Props>(useHook: (props: Props) => Value) {
     const [, forceUpdate] = useReducer(() => ({}), {});
     const { value, events } = useContext(Context);
     const selectedValue = selector ? selector(value) : value;
-    const storeValue = {
+    const current = {
       value,
       selectedValue,
       events,
       selector,
     };
-    const ref = useRef(storeValue);
-    ref.current = storeValue;
+    const ref = useRef(current);
+    ref.current = current;
     useSafeEffect(() => {
       function event(nextValue: Value) {
         const { value, selectedValue, selector } = ref.current;
