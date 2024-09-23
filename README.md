@@ -51,8 +51,8 @@ const CounterStore = createStore(() => {
   };
 });
 
+// 消费 Store
 const Child1 = () => {
-  // 使用 Store
   const { count } = CounterStore.useStore();
   return <div>{count}</div>;
 };
@@ -65,8 +65,8 @@ const Child3 = () => {
   return <button onClick={decrease}>Decrease</button>;
 };
 
+// 提供 Store
 const App = () => {
-  // 提供 Store
   return (
     <CounterStore.Provider>
       <Child1 />
